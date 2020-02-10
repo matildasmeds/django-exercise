@@ -24,18 +24,18 @@ class RecipeSerializer(serializers.ModelSerializer):
 
     # This feels a bit odd, but was the best I could do
     def create(self, validated_data):
-        ingredients = validated_data['ingredients']
-        del validated_data['ingredients']
-        recipe = Recipe.objects.create(**validated_data)
+        ingredients = validated_data.pop('ingredients')
+        recipe = Recipe(**validated_data)
         recipe.save()
 
-        def save_ingredient(ing_data):
+        for ing_data in ingredients:
             serializer = IngredientSerializer(data=ing_data)
             if serializer.is_valid():
-                Ingredient.objects.create(
-                    recipe_id=recipe.id,
+                ingredient = Ingredient(
+                    recipe=recipe,
                     **serializer.data
                 )
+                ingredient.save()
+                recipe.ingredients.add(ingredient)
 
-        map(save_ingredient, ingredients)
         return recipe

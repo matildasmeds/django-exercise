@@ -23,8 +23,8 @@ def recipe_list(request):
     if request.method == 'POST':
         serializer = RecipeSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
+            recipe = serializer.save()
+            return JsonResponse(RecipeSerializer(recipe).data, status=201)
         return JsonResponse(serializer.errors, status=404)
 
 
