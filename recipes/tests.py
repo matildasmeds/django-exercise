@@ -11,7 +11,7 @@ RECIPE_SERIALIZATION = {
 }
 
 
-class RecipesListTests(TestCase):
+class RecipeListTests(TestCase):
 
     def test_get_recipes(self):
         """Test GET /api/recipes"""
@@ -21,6 +21,21 @@ class RecipesListTests(TestCase):
         expected = [RECIPE_SERIALIZATION]
         self.assertEquals(json.loads(res.content), expected)
         self.assertEquals(res.status_code, 200)
+
+    def test_post_recipes(self):
+        """Test POST /api/recipes"""
+        url = "/api/recipes"
+        params = {
+            'name': 'Sliced avocado',
+            'description': 'Cut a ripe avocado in half, and cut into slices',
+        }
+        res = self.client.post(url, params)
+
+        self.assertEquals(res.status_code, 201)
+        self.assertContains(res, 'id')
+
+
+class RecipeShowTests(TestCase):
 
     def test_get_recipe(self):
         """Test GET /api/recipes/:id"""
