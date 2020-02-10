@@ -6,10 +6,18 @@
 # }
 
 from rest_framework import serializers
-from recipes.models import Recipe
+from recipes.models import Recipe, Ingredient
+
+
+class IngredientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ingredient
+        fields = ['name']
 
 
 class RecipeSerializer(serializers.ModelSerializer):
+    ingredients = IngredientSerializer(many=True)
+
     class Meta:
         model = Recipe
-        fields = ['id', 'name', 'description']
+        fields = ['id', 'name', 'description', 'ingredients']

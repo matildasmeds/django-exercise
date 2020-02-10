@@ -11,7 +11,12 @@ class Recipe(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, default='')
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=True)
+    recipe = models.ForeignKey(
+        Recipe,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='ingredients'
+    )
 
     def __str__(self):
         return self.name
