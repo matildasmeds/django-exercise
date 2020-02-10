@@ -21,3 +21,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ['id', 'name', 'description', 'ingredients']
+
+    def create(self, validated_data):
+        import pdb
+        pdb.set_trace()
