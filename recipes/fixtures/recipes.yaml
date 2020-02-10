@@ -1,0 +1,8 @@
+- model: recipes:recipes
+  pk: 1
+  fields: 
+    name: Avocado Pasta
+    description: >
+      "Avocado pasta is quick, easy, and dairy-free.
+      You only need 15 minutes and a fork to make the 
+      creamy avocado sauce (no food processor is required!)"
