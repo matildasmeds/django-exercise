@@ -1,4 +1,6 @@
 from django.test import TestCase
+from rest_framework import status
+
 import json
 
 RECIPE_SERIALIZATION = {
