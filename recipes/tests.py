@@ -32,10 +32,15 @@ class RecipeListTests(TestCase):
                 {"name": "cheese"},
                 {"name": "tomato"}],
         }
-        payload = json.dumps(params)
+        res = self.client.post(
+            url,
+            json.dumps(params),
+            content_type='application/json'
+        )
 
-        res = self.client.post(url, payload, content_type='application/json')
-
+        payload = json.loads(res.content)
+        params['id'] = payload['id']
+        self.assertEquals(payload, params)
         self.assertEquals(res.status_code, 201)
 
 

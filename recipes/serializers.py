@@ -22,6 +22,20 @@ class RecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ['id', 'name', 'description', 'ingredients']
 
+    # This feels a bit odd, but was the best I could do
     def create(self, validated_data):
-        import pdb
-        pdb.set_trace()
+        ingredients = validated_data['ingredients']
+        del validated_data['ingredients']
+        recipe = Recipe.objects.create(**validated_data)
+        recipe.save()
+
+        def save_ingredient(ing_data):
+            serializer = IngredientSerializer(data=ing_data)
+            if serializer.is_valid():
+                Ingredient.objects.create(
+                    recipe_id=recipe.id,
+                    **serializer.data
+                )
+
+        map(save_ingredient, ingredients)
+        return recipe
