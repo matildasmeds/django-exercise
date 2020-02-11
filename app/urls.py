@@ -24,4 +24,5 @@ api_router.register(r'api/recipes', RecipeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-] + api_router.urls
+    path('api/recipe/', include('recipes.urls'))
+]
