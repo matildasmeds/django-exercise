@@ -1,5 +1,4 @@
 from django.test import TestCase
-from rest_framework import status
 from rest_framework.test import APIClient
 
 import json
@@ -18,7 +17,6 @@ class RecipeAPITests(TestCase):
         url = "/api/recipe/"
         self.client = APIClient()
         res = self.client.get(url, format="json")
-        print(res)
 
         expected = [RECIPE_SERIALIZATION]
         self.assertEquals(json.loads(res.content), expected)
@@ -40,7 +38,6 @@ class RecipeAPITests(TestCase):
             json.dumps(params),
             content_type='application/json'
         )
-        print(res)
 
         payload = json.loads(res.content)
         params['id'] = payload['id']
@@ -51,7 +48,6 @@ class RecipeAPITests(TestCase):
         """Test GET /api/recipe/:id"""
         url = "/api/recipe/1/"
         res = self.client.get(url, format="json")
-        print(res)
 
         expected = RECIPE_SERIALIZATION
         self.assertEquals(json.loads(res.content), expected)
@@ -65,7 +61,10 @@ class RecipeAPITests(TestCase):
           'description': 'Put it in the oven',
           'ingredients': [{'name': 'casa-tarradellas'}]
         }
-        res = self.client.patch(url, json.dumps(params), format='json')
+        res = self.client.patch(url,
+                                json.dumps(params),
+                                content_type='application/json')
+        print(res)
         payload = json.loads(res.content)
         params['id'] = payload['id']
 
