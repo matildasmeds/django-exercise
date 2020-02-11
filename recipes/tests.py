@@ -54,7 +54,7 @@ class RecipeAPITests(TestCase):
         self.assertEquals(res.status_code, 200)
 
     def test_update_recipe(self):
-        """TEST PATCH /api/recipe/:id"""
+        """Test PATCH /api/recipe/:id"""
         url = "/api/recipe/1/"
         params = {
           'name': 'Pizza',
@@ -64,9 +64,17 @@ class RecipeAPITests(TestCase):
         res = self.client.patch(url,
                                 json.dumps(params),
                                 content_type='application/json')
-        print(res)
+
         payload = json.loads(res.content)
         params['id'] = payload['id']
 
         self.assertEquals(res.status_code, 200)
         self.assertEquals(payload, params)
+
+    # These tests can't be run in parallel atm
+    def test_delete_recipe(self):
+        """Test DELETE /api/recipe/:id"""
+        url = "/api/recipe/1/"
+        res = self.client.delete(url)
+
+        self.assertEquals(res.status_code, 204)
