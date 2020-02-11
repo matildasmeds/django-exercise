@@ -9,6 +9,7 @@ class RecipeViewSet(mixins.ListModelMixin,
                     mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     mixins.RetrieveModelMixin,
+                    mixins.DestroyModelMixin,
                     GenericViewSet):
 
     queryset = Recipe.objects.all()
