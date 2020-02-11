@@ -12,7 +12,7 @@ RECIPE_SERIALIZATION = {
 }
 
 
-class RecipeListTests(TestCase):
+class RecipeAPITests(TestCase):
     def test_get_recipes(self):
         """Test GET /api/recipe"""
         url = "/api/recipe/"
@@ -47,8 +47,6 @@ class RecipeListTests(TestCase):
         self.assertEquals(payload, params)
         self.assertEquals(res.status_code, 201)
 
-
-class RecipeShowTests(TestCase):
     def test_get_recipe(self):
         """Test GET /api/recipe/:id"""
         url = "/api/recipe/1/"
@@ -58,3 +56,18 @@ class RecipeShowTests(TestCase):
         expected = RECIPE_SERIALIZATION
         self.assertEquals(json.loads(res.content), expected)
         self.assertEquals(res.status_code, 200)
+
+    def test_update_recipe(self):
+        """TEST PATCH /api/recipe/:id"""
+        url = "/api/recipe/1/"
+        params = {
+          'name': 'Pizza',
+          'description': 'Put it in the oven',
+          'ingredients': [{'name': 'casa-tarradellas'}]
+        }
+        res = self.client.patch(url, json.dumps(params), format='json')
+        payload = json.loads(res.content)
+        params['id'] = payload['id']
+
+        self.assertEquals(res.status_code, 200)
+        self.assertEquals(payload, params)
