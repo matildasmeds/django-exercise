@@ -15,3 +15,10 @@ class RecipeViewSet(mixins.ListModelMixin,
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
     renderer_classes = [JSONRenderer]
+
+    def list(self, request):
+        query = request.query_params
+        if ('name' in query):
+            self.queryset = Recipe.objects.filter(name__contains=query['name'])
+
+        return super().list(request)

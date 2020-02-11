@@ -63,10 +63,10 @@ class RecipeAPITests(TestCase):
 
     def test_search_recipe(self):
         """Test GET /api/recipe/?name=<search string>"""
-        url = '/api/recipe/?name=Pi'
+        url = '/api/recipe/?name=Pa'
         res = self.client.get(url, format='json')
 
-        expected = [RECIPE_DICT['pizza']]
+        expected = [RECIPE_DICT['pasta']]
         self.assertEquals(json.loads(res.content), expected)
         self.assertEquals(res.status_code, 200)
 
