@@ -15,7 +15,7 @@ RECIPE_SERIALIZATION = {
 class RecipeListTests(TestCase):
     def test_get_recipes(self):
         """Test GET /api/recipe"""
-        url = "/api/recipe"
+        url = "/api/recipe/"
         self.client = APIClient()
         res = self.client.get(url, format="json")
         print(res)
@@ -26,7 +26,7 @@ class RecipeListTests(TestCase):
 
     def test_post_recipes(self):
         """Test POST /api/recipe"""
-        url = "/api/recipe"
+        url = "/api/recipe/"
         params = {
             "name": "Pizza",
             "description": "Put it in the oven",
@@ -51,7 +51,7 @@ class RecipeListTests(TestCase):
 class RecipeShowTests(TestCase):
     def test_get_recipe(self):
         """Test GET /api/recipe/:id"""
-        url = "/api/recipe/1"
+        url = "/api/recipe/1/"
         res = self.client.get(url, format="json")
         print(res)
 
