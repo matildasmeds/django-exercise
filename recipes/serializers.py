@@ -31,7 +31,6 @@ class RecipeSerializer(serializers.ModelSerializer):
                     **serializer.data
                 )
                 ingredient.save()
-                recipe.ingredients.add(ingredient)
 
     # This feels a bit odd, but was the best I could do
     def create(self, validated_data):

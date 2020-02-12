@@ -47,8 +47,8 @@ class RecipeAPITests(TestCase):
         )
 
         payload = json.loads(res.content)
-        id = payload.pop('id')
-        self.assertEquals(id, 2)
+        recipe_id = payload.pop('id')
+        self.assertEquals(recipe_id, 2)
         self.assertEquals(payload, params)
         self.assertEquals(res.status_code, 201)
 
