@@ -50,5 +50,6 @@ class RecipeSerializer(serializers.ModelSerializer):
 
         recipe.ingredients.all().delete()
         self.add_ingredients(recipe, ingredients)
+        recipe.save()
 
         return recipe
