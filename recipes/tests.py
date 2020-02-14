@@ -91,10 +91,6 @@ class RecipeAPITests(TestCase):
         self.assertEquals(res.status_code, 200)
         self.assertEquals(payload, params)
 
-    def assert_object_does_not_exist(self, model, id):
-        with self.assertRaises(ObjectDoesNotExist):
-            model.objects.get(pk=id)
-
     # These tests can't be run in parallel atm
     def test_delete_recipe(self):
         """Test DELETE /api/recipe/:id"""
@@ -106,6 +102,6 @@ class RecipeAPITests(TestCase):
         res = self.client.delete(url)
 
         self.assertEquals(res.status_code, 204)
-        self.assert_object_does_not_exist(Recipe, 1)
+        self.assertEquals(Recipe.objects.filter(pk=1).exists(), True)
         for id in ingredient_ids:
-            self.assert_object_does_not_exist(Ingredient, id)
+            self.assertEquals(Ingredient.objects.filter(pk=1).exists(), True)

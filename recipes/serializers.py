@@ -26,11 +26,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         for ing_data in ingredients:
             serializer = IngredientSerializer(data=ing_data)
             if serializer.is_valid():
-                ingredient = Ingredient(
+                Ingredient.objects.create(
                     recipe=recipe,
                     **serializer.data
                 )
-                ingredient.save()
 
     # This feels a bit odd, but was the best I could do
     def create(self, validated_data):
